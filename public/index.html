@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auction Radar</title>
+<title>Push Radar</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,105 +12,113 @@
   --ink2: #6b6b65; --ink3: #b0afa9; --line: #e4e2dd;
   --push: #c84b2f; --soon: #e8a020; --ok: #2e7d5e; --r: 2px;
 }
-body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; font-size: 13px; line-height: 1.5; }
-.page { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100vh; font-size: 16px; line-height: 1.6; }
+.page { max-width: 1400px; margin: 0 auto; padding: 48px 40px; }
 
 .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px; }
-.wordmark { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--ink); }
+.wordmark { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--ink); }
 .wordmark em { font-style: italic; color: var(--ink2); }
-.header-meta { font-size: 11px; color: var(--ink3); text-align: right; }
+.header-meta { font-size: 13px; color: var(--ink3); text-align: right; }
 .header-meta strong { display: block; color: var(--ink2); font-weight: 400; margin-bottom: 2px; }
 
 .stats { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--line); border-radius: var(--r); background: var(--white); margin-bottom: 40px; overflow: hidden; }
-.stat { padding: 20px 24px; border-right: 1px solid var(--line); }
+.stat { padding: 22px 28px; border-right: 1px solid var(--line); }
 .stat:last-child { border-right: none; }
-.stat-n { font-family: 'Playfair Display', serif; font-size: 34px; line-height: 1; color: var(--ink); }
+.stat-n { font-family: 'Playfair Display', serif; font-size: 40px; line-height: 1; color: var(--ink); }
 .stat-n.red { color: var(--push); } .stat-n.green { color: var(--ok); }
-.stat-label { font-size: 10px; color: var(--ink3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-label { font-size: 11px; color: var(--ink3); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.08em; }
 
 .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
-.filters { display: flex; gap: 4px; align-items: center; }
-.f-label { font-size: 10px; color: var(--ink3); margin-right: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
-.f-btn { background: var(--white); border: 1px solid var(--line); color: var(--ink2); padding: 5px 14px; font-family: 'Inter', sans-serif; font-size: 10px; cursor: pointer; border-radius: var(--r); transition: all 0.1s; text-transform: uppercase; letter-spacing: 0.05em; }
-.f-btn.active, .f-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+.filters { display: flex; gap: 6px; align-items: center; }
+.f-label { font-size: 11px; color: var(--ink3); margin-right: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.f-btn { background: var(--white); border: 1px solid var(--line); color: var(--ink2); padding: 7px 18px; font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; border-radius: var(--r); transition: all 0.1s; text-transform: uppercase; letter-spacing: 0.05em; }
+.f-btn.active, .f-btn:hover { background: var(--ink); border-color: var(--ink2); color: #fff; }
 .toolbar-right { display: flex; gap: 8px; }
-.toolbar-right button { background: none; border: 1px solid var(--line); color: var(--ink2); padding: 5px 12px; font-family: 'Inter', sans-serif; font-size: 10px; cursor: pointer; border-radius: var(--r); text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.1s; }
+.toolbar-right button { background: none; border: 1px solid var(--line); color: var(--ink2); padding: 7px 14px; font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; border-radius: var(--r); text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.1s; }
 .toolbar-right button:hover { border-color: var(--ink2); color: var(--ink); }
 .sync-btn { background: var(--ink) !important; border-color: var(--ink) !important; color: #fff !important; }
 .sync-btn:hover { opacity: 0.8; }
 .sync-btn:disabled { opacity: 0.5; cursor: not-allowed !important; }
 
-.days { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; margin-bottom: 52px; }
-.day { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); min-height: 148px; display: flex; flex-direction: column; overflow: hidden; }
-.day.is-today { border-color: var(--ink); }
-.day-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--line); }
+.days { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; margin-bottom: 52px; }
+.day { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); min-height: 180px; display: flex; flex-direction: column; overflow: hidden; }
+.day.is-today { border-color: var(--ink2); }
+.day-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--line); }
 .day.is-today .day-head { background: var(--ink); }
-.day-weekday { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); }
+.day-weekday { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); }
 .day.is-today .day-weekday { color: rgba(255,255,255,0.45); }
-.day-num { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1.1; margin-top: 1px; }
+.day-num { font-family: 'Playfair Display', serif; font-size: 36px; line-height: 1.1; margin-top: 2px; }
 .day.is-today .day-num { color: #fff; }
-.day-body { flex: 1; padding: 7px; display: flex; flex-direction: column; gap: 4px; }
-.event { padding: 6px 8px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); cursor: pointer; transition: border-color 0.1s; }
+.day-body { flex: 1; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.event { padding: 9px 11px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); cursor: pointer; transition: border-color 0.1s; }
 .event:hover { border-color: var(--ink2); }
-.event.push { border-left: 2px solid var(--push); }
+.event.push-received { border-left: 3px solid var(--push); }
+.event.push-sent { border-left: 3px solid var(--ok); }
 .event.auto { border-style: solid; }
-.event-house { font-size: 10px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.event-title { font-size: 9px; color: var(--ink3); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.push-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--push); margin-right: 4px; vertical-align: middle; margin-top: -1px; }
-.auto-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--ok); margin-right: 4px; vertical-align: middle; margin-top: -1px; }
-.add-btn { margin-top: auto; background: none; border: 1px dashed var(--line); color: var(--ink3); width: 100%; padding: 4px; font-family: 'Inter', sans-serif; font-size: 9px; cursor: pointer; border-radius: var(--r); transition: all 0.1s; }
+.event-house { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-title { font-size: 11px; color: var(--ink3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-badges { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+.badge { font-size: 9px; padding: 2px 7px; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.badge.received { background: rgba(200,75,47,0.1); color: var(--push); }
+.badge.sent { background: rgba(46,125,94,0.1); color: var(--ok); }
+.badge.auto { background: rgba(107,107,101,0.1); color: var(--ink2); }
+.push-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--push); margin-right: 4px; vertical-align: middle; margin-top: -1px; }
+.auto-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 4px; vertical-align: middle; margin-top: -1px; }
+.add-btn { margin-top: auto; background: none; border: 1px dashed var(--line); color: var(--ink3); width: 100%; padding: 7px; font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; border-radius: var(--r); transition: all 0.1s; }
 .add-btn:hover { border-color: var(--ink3); color: var(--ink2); }
 
-.section-head { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-.section-head button { background: none; border: 1px solid var(--line); color: var(--ink2); padding: 3px 10px; font-family: 'Inter', sans-serif; font-size: 10px; cursor: pointer; border-radius: var(--r); text-transform: uppercase; transition: all 0.1s; }
+.section-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+.section-head button { background: none; border: 1px solid var(--line); color: var(--ink2); padding: 5px 12px; font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; border-radius: var(--r); text-transform: uppercase; transition: all 0.1s; }
 .section-head button:hover { border-color: var(--ink2); color: var(--ink); }
 
 .table { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 48px; }
-.table-head { display: grid; grid-template-columns: 1fr 2fr 130px 80px; padding: 8px 20px; background: var(--bg); border-bottom: 1px solid var(--line); gap: 16px; }
-.th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); }
-.house-row { display: grid; grid-template-columns: 1fr 2fr 130px 80px; align-items: center; padding: 13px 20px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background 0.1s; gap: 16px; }
+.table-head { display: grid; grid-template-columns: 1fr 2fr 130px 160px; padding: 10px 24px; background: var(--bg); border-bottom: 1px solid var(--line); gap: 16px; }
+.th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); }
+.house-row { display: grid; grid-template-columns: 1fr 2fr 130px 160px; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background 0.1s; gap: 16px; }
 .house-row:last-child { border-bottom: none; }
 .house-row:hover { background: var(--bg); }
-.house-name-cell { display: flex; align-items: center; gap: 8px; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); flex-shrink: 0; }
+.house-name-cell { display: flex; align-items: center; gap: 10px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex-shrink: 0; }
 .dot.active { background: var(--ok); } .dot.soon { background: var(--soon); }
-.h-name { font-size: 12px; font-weight: 500; }
-.h-url { font-size: 10px; color: var(--ink3); }
-.h-next { font-size: 11px; color: var(--ink2); }
-.h-next .none { color: var(--ink3); font-size: 10px; }
-.push-btn { background: none; border: 1px solid var(--line); color: var(--ink3); padding: 4px 0; width: 66px; font-family: 'Inter', sans-serif; font-size: 9px; cursor: pointer; border-radius: var(--r); transition: all 0.12s; text-transform: uppercase; text-align: center; }
-.push-btn.on { background: var(--push); border-color: var(--push); color: #fff; }
+.h-name { font-size: 15px; font-weight: 600; }
+.h-url { font-size: 12px; color: var(--ink3); }
+.h-next { font-size: 15px; color: var(--ink2); }
+.h-next .none { color: var(--ink3); font-size: 13px; }
+.push-btns { display: flex; gap: 5px; }
+.push-btn { background: none; border: 1px solid var(--line); color: var(--ink3); padding: 5px 0; width: 80px; font-family: 'Inter', sans-serif; font-size: 10px; cursor: pointer; border-radius: var(--r); transition: all 0.12s; text-transform: uppercase; text-align: center; letter-spacing: 0.03em; }
+.push-btn.received.on { background: var(--push); border-color: var(--push); color: #fff; }
+.push-btn.sent.on { background: var(--ok); border-color: var(--ok); color: #fff; }
 .push-btn:not(.on):hover { border-color: var(--ink2); color: var(--ink2); }
 
 /* Toast */
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 20px; border-radius: 4px; font-size: 12px; opacity: 0; transition: all 0.2s; pointer-events: none; z-index: 999; white-space: nowrap; }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 11px 22px; border-radius: 4px; font-size: 13px; opacity: 0; transition: all 0.2s; pointer-events: none; z-index: 999; white-space: nowrap; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.error { background: var(--push); }
 
-.footer { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--line); font-size: 10px; color: var(--ink3); }
+.footer { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink3); }
 .live { display: flex; align-items: center; gap: 6px; }
-.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ok); animation: blink 2s infinite; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 /* Legend */
-.legend { display: flex; gap: 16px; align-items: center; font-size: 10px; color: var(--ink3); }
+.legend { display: flex; gap: 16px; align-items: center; font-size: 11px; color: var(--ink3); }
 .legend-item { display: flex; align-items: center; gap: 5px; }
-.l-dot { width: 6px; height: 6px; border-radius: 50%; }
+.l-dot { width: 7px; height: 7px; border-radius: 50%; }
 
 .overlay { position: fixed; inset: 0; background: rgba(247,245,242,0.88); backdrop-filter: blur(3px); z-index: 50; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
 .overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 32px; width: 400px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(8px); transition: transform 0.15s; }
+.modal { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 36px; width: 440px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(8px); transition: transform 0.15s; }
 .overlay.open .modal { transform: translateY(0); }
-.modal-title { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 22px; }
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); margin-bottom: 5px; }
-.field input, .field select { width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--ink); padding: 9px 12px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 12px; outline: none; transition: border-color 0.1s; appearance: none; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 24px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); margin-bottom: 6px; }
+.field input, .field select { width: 100%; background: var(--bg); border: 1px solid var(--line); color: var(--ink); padding: 10px 14px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 14px; outline: none; transition: border-color 0.1s; appearance: none; }
 .field input:focus, .field select:focus { border-color: var(--ink2); }
 .field input::placeholder { color: var(--ink3); }
-.modal-actions { display: flex; gap: 8px; margin-top: 22px; }
-.btn-ink { background: var(--ink); color: #fff; border: none; padding: 9px 20px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.1s; }
+.modal-actions { display: flex; gap: 8px; margin-top: 24px; }
+.btn-ink { background: var(--ink); color: #fff; border: none; padding: 10px 22px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.1s; }
 .btn-ink:hover { opacity: 0.78; }
-.btn-ghost { background: none; color: var(--ink2); border: 1px solid var(--line); padding: 9px 20px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: border-color 0.1s; }
+.btn-ghost { background: none; color: var(--ink2); border: 1px solid var(--line); padding: 10px 22px; border-radius: var(--r); font-family: 'Inter', sans-serif; font-size: 12px; cursor: pointer; text-transform: uppercase; transition: border-color 0.1s; }
 .btn-ghost:hover { border-color: var(--ink2); }
 
 @keyframes up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
@@ -137,7 +145,7 @@ body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-seri
 <body>
 <div class="page">
   <header class="header">
-    <div class="wordmark">Auction <em>Radar</em></div>
+    <div class="wordmark">PUSH <em>RADAR</em></div>
     <div class="header-meta">
       <strong id="full-date"></strong>
       <span id="last-update">—</span>
@@ -145,48 +153,52 @@ body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-seri
   </header>
 
   <div class="stats">
-    <div class="stat"><div class="stat-n red" id="s-today">0</div><div class="stat-label">Aujourd'hui</div></div>
-    <div class="stat"><div class="stat-n" id="s-week">0</div><div class="stat-label">Cette semaine</div></div>
-    <div class="stat"><div class="stat-n green" id="s-push">0</div><div class="stat-label">Push actives</div></div>
-    <div class="stat"><div class="stat-n" id="s-houses">0</div><div class="stat-label">Maisons suivies</div></div>
+    <div class="stat"><div class="stat-n red" id="s-today">0</div><div class="stat-label">Today</div></div>
+    <div class="stat"><div class="stat-n" id="s-week">0</div><div class="stat-label">Next 14 days</div></div>
+    <div class="stat"><div class="stat-n green" id="s-push">0</div><div class="stat-label">Active Push</div></div>
+    <div class="stat"><div class="stat-n" id="s-houses">0</div><div class="stat-label">Houses tracked</div></div>
   </div>
 
   <div class="toolbar">
     <div class="filters">
       <span class="f-label">Vue</span>
-      <button class="f-btn active" onclick="setFilter('all',this)">Toutes</button>
+      <button class="f-btn active" onclick="setFilter('all',this)">All</button>
       <button class="f-btn" onclick="setFilter('push',this)">Push</button>
-      <button class="f-btn" onclick="setFilter('today',this)">Aujourd'hui</button>
+      <button class="f-btn" onclick="setFilter('today',this)">Today</button>
     </div>
     <div class="toolbar-right">
       <div class="legend">
-        <div class="legend-item"><div class="l-dot" style="background:var(--ok)"></div>Scrappé auto</div>
-        <div class="legend-item"><div class="l-dot" style="background:var(--push)"></div>Push</div>
+        <div class="legend-item"><div class="l-dot" style="background:var(--ok)"></div>Auto-scraped</div>
+        <div class="legend-item"><div class="l-dot" style="background:var(--push)"></div>Push received</div>
+        <div class="legend-item"><div class="l-dot" style="background:var(--ok)"></div>Push sent</div>
       </div>
-      <button class="sync-btn" onclick="syncNow()" id="sync-btn">↺ Sync maintenant</button>
+      <button class="sync-btn" onclick="syncNow()" id="sync-btn">↺ Sync now</button>
       <button onclick="renderAll()">Refresh</button>
     </div>
   </div>
 
+  <div class="section-head" style="margin-bottom:16px">
+    <span>Next 14 days</span>
+  </div>
   <div class="days" id="days-grid"></div>
 
   <div class="section-head">
-    <span>Maisons de vente</span>
-    <button onclick="openHouseModal()">+ Ajouter</button>
+    <span>Auction Houses</span>
+    <button onclick="openHouseModal()">+ Add</button>
   </div>
   <div class="table">
     <div class="table-head">
-      <div class="th">Maison</div>
-      <div class="th">URL scrappée</div>
-      <div class="th">Prochaine vente</div>
-      <div class="th">Push</div>
+      <div class="th">House</div>
+      <div class="th">Scraped URL</div>
+      <div class="th">Next sale</div>
+      <div class="th">Push received / sent</div>
     </div>
     <div id="houses-list"></div>
   </div>
 
   <footer class="footer">
-    <div class="live"><div class="live-dot"></div><span>Sync automatique chaque matin à 7h</span></div>
-    <span>Auction Radar — 2026</span>
+    <div class="live"><div class="live-dot"></div><span>Auto-sync every morning at 7am</span></div>
+    <span>Push Radar — 2026</span>
   </footer>
 </div>
 
@@ -195,14 +207,14 @@ body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-seri
 <!-- Sale modal -->
 <div class="overlay" id="sale-modal">
   <div class="modal">
-    <div class="modal-title">Ajouter une vente</div>
-    <div class="field"><label>Maison</label><select id="m-house"></select></div>
+    <div class="modal-title">Add a sale</div>
+    <div class="field"><label>Auction House</label><select id="m-house"></select></div>
     <div class="field"><label>Date</label><input type="date" id="m-date"></div>
-    <div class="field"><label>Titre (optionnel)</label><input type="text" id="m-title" placeholder="ex: Estate Collection"></div>
-    <div class="field"><label>URL LiveAuctioneers</label><input type="text" id="m-url" placeholder="https://liveauctioneers.com/…"></div>
+    <div class="field"><label>Title (optional)</label><input type="text" id="m-title" placeholder="e.g. Estate Collection"></div>
+    <div class="field"><label>LiveAuctioneers URL</label><input type="text" id="m-url" placeholder="https://liveauctioneers.com/…"></div>
     <div class="modal-actions">
-      <button class="btn-ink" onclick="saveSale()">Ajouter</button>
-      <button class="btn-ghost" onclick="close_('sale-modal')">Annuler</button>
+      <button class="btn-ink" onclick="saveSale()">Add</button>
+      <button class="btn-ghost" onclick="close_('sale-modal')">Cancel</button>
     </div>
   </div>
 </div>
@@ -210,12 +222,12 @@ body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-seri
 <!-- House modal -->
 <div class="overlay" id="house-modal">
   <div class="modal">
-    <div class="modal-title">Nouvelle maison</div>
-    <div class="field"><label>Nom</label><input type="text" id="h-name" placeholder="ex: CORAL GABLES AUCTIONS"></div>
-    <div class="field"><label>URL page calendrier</label><input type="text" id="h-url" placeholder="https://www.liveauctioneers.com/auctioneer/…"></div>
+    <div class="modal-title">New auction house</div>
+    <div class="field"><label>Name</label><input type="text" id="h-name" placeholder="e.g. CORAL GABLES AUCTIONS"></div>
+    <div class="field"><label>Calendar page URL</label><input type="text" id="h-url" placeholder="https://www.liveauctioneers.com/auctioneer/…"></div>
     <div class="modal-actions">
-      <button class="btn-ink" onclick="saveHouse()">Ajouter</button>
-      <button class="btn-ghost" onclick="close_('house-modal')">Annuler</button>
+      <button class="btn-ink" onclick="saveHouse()">Add</button>
+      <button class="btn-ghost" onclick="close_('house-modal')">Cancel</button>
     </div>
   </div>
 </div>
@@ -224,18 +236,18 @@ body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-seri
 const S = {
   filter: 'all',
   houses: [
-    {id:1,  name:"NYE & CO",           url:"https://www.nyeandcompany.com/auctions/upcoming-auctions/",              push:false},
-    {id:2,  name:"VOGT AUCTIONS",      url:"https://vogtauction.com/auctions",                                       push:false},
-    {id:3,  name:"ARARITY",            url:"https://www.ararityauctions.com/auctions/",                              push:true },
-    {id:4,  name:"EVERARD",            url:"https://www.liveauctioneers.com/auctioneer/everard/",                     push:false},
-    {id:5,  name:"FREEMAN YODER",      url:"https://www.liveauctioneers.com/auctioneer/freeman-yoder/",               push:false},
-    {id:6,  name:"PALM BEACH MODERN",  url:"https://www.modernauctions.com/",                                         push:true },
-    {id:7,  name:"JULIENS",            url:"https://www.julienslive.com/auctions",                                    push:true },
-    {id:8,  name:"CORAL GABLES",       url:"https://www.liveauctioneers.com/auctioneer/coral-gables-auctions/",      push:false},
-    {id:9,  name:"CUTLER BAY",         url:"https://www.liveauctioneers.com/auctioneer/6715/cutler-bay-auctions/",   push:false},
-    {id:10, name:"INTERVENDUE",        url:"https://www.liveauctioneers.com/auctioneer/6970/intervendue/",            push:false},
-    {id:11, name:"BIDDLE AUCTION",     url:"https://www.liveauctioneers.com/auctioneer/6521/c-biddle-auction-gallery-inc/", push:false},
-    {id:12, name:"HOWARD & THOMAS",    url:"https://www.liveauctioneers.com/auctioneer/howard-thomas/",               push:false},
+    {id:1,  name:"NYE & CO",           url:"https://www.nyeandcompany.com/auctions/upcoming-auctions/",              pushReceived:false, pushSent:false},
+    {id:2,  name:"VOGT AUCTIONS",      url:"https://vogtauction.com/auctions",                                       pushReceived:false, pushSent:false},
+    {id:3,  name:"ARARITY",            url:"https://www.ararityauctions.com/auctions/",                              pushReceived:false, pushSent:false},
+    {id:4,  name:"EVERARD",            url:"https://www.liveauctioneers.com/auctioneer/4098/everard/",               pushReceived:false, pushSent:false},
+    {id:5,  name:"FREEMAN YODER",      url:"https://www.liveauctioneers.com/auctioneer/8025/freeman-yoder/",          pushReceived:false, pushSent:false},
+    {id:6,  name:"PALM BEACH MODERN",  url:"https://www.modernauctions.com/",                                         pushReceived:false, pushSent:false},
+    {id:7,  name:"JULIENS",            url:"https://www.liveauctioneers.com/auctioneer/1013/juliens-auctions/",       pushReceived:false, pushSent:false},
+    {id:8,  name:"CORAL GABLES",       url:"https://www.liveauctioneers.com/auctioneer/6343/coral-gables-auctions/", pushReceived:false, pushSent:false},
+    {id:9,  name:"CUTLER BAY",         url:"https://www.liveauctioneers.com/auctioneer/6715/cutler-bay-auctions/",   pushReceived:false, pushSent:false},
+    {id:10, name:"INTERVENDUE",        url:"https://www.liveauctioneers.com/auctioneer/6970/intervendue/",            pushReceived:false, pushSent:false},
+    {id:11, name:"BIDDLE AUCTION",     url:"https://www.liveauctioneers.com/auctioneer/6521/c-biddle-auction-gallery-inc/", pushReceived:false, pushSent:false},
+    {id:12, name:"HOWARD & THOMAS",    url:"https://www.liveauctioneers.com/auctioneer/6806/howard-thomas/",          pushReceived:false, pushSent:false},
   ],
   sales: [],
   lastSync: null
@@ -243,7 +255,7 @@ const S = {
 
 const today = () => new Date().toISOString().split('T')[0];
 const offset = (n) => { const d=new Date(); d.setDate(d.getDate()+n); return d; };
-const fmt = (s) => new Date(s+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
+const fmt = (s) => new Date(s+'T12:00:00').toLocaleDateString('en-US',{day:'numeric',month:'short'});
 const getH = (id) => S.houses.find(h=>h.id===id);
 
 // ── Persistence ───────────────────────────────────────────────────────────────
@@ -258,7 +270,15 @@ function load(){
   const sh = localStorage.getItem('ar_houses');
   const sl = localStorage.getItem('ar_lastSync');
   if(ss) S.sales = JSON.parse(ss);
-  if(sh) S.houses = JSON.parse(sh);
+  if(sh) {
+    const loaded = JSON.parse(sh);
+    // Migrate old 'push' field to pushReceived/pushSent
+    S.houses = loaded.map(h => ({
+      ...h,
+      pushReceived: h.pushReceived ?? h.push ?? false,
+      pushSent: h.pushSent ?? false
+    }));
+  }
   if(sl) S.lastSync = sl;
 }
 
@@ -266,7 +286,7 @@ function load(){
 async function syncNow(){
   const btn = document.getElementById('sync-btn');
   btn.disabled = true;
-  btn.textContent = '↺ Sync en cours…';
+  btn.textContent = '↺ Syncing…';
   showToast('Scraping en cours…');
 
   try {
@@ -278,18 +298,18 @@ async function syncNow(){
       S.sales = S.sales.filter(s => !s.auto);
       // Add new scraped sales
       S.sales.push(...data.sales);
-      S.lastSync = new Date().toLocaleString('fr-FR');
+      S.lastSync = new Date().toLocaleString('en-US');
       save();
       renderAll();
-      showToast(`✓ ${data.sales.length} ventes trouvées`);
-      if(data.errors?.length) showToast(`⚠ ${data.errors.length} sites inaccessibles`, 'error', 4000);
+      showToast(`✓ ${data.sales.length} sales found`);
+      if(data.errors?.length) showToast(`⚠ ${data.errors.length} sites unreachable`, 'error', 4000);
     }
   } catch(e) {
-    showToast('Erreur de connexion', 'error');
+    showToast('Connection error', 'error');
   }
 
   btn.disabled = false;
-  btn.textContent = '↺ Sync maintenant';
+  btn.textContent = '↺ Sync now';
 }
 
 function showToast(msg, type='', duration=2500){
@@ -304,13 +324,13 @@ function showToast(msg, type='', duration=2500){
 function renderDays(){
   const g=document.getElementById('days-grid');
   g.innerHTML='';
-  for(let i=0;i<7;i++){
+  for(let i=0;i<14;i++){
     const d=offset(i);
     const iso=d.toISOString().split('T')[0];
     const isToday=iso===today();
-    const wd=d.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','').toUpperCase();
+    const wd=d.toLocaleDateString('en-US',{weekday:'short'}).replace('.','').toUpperCase();
     let sales=S.sales.filter(s=>s.date===iso);
-    if(S.filter==='push') sales=sales.filter(s=>s.push || getH(s.houseId)?.push);
+    if(S.filter==='push') sales=sales.filter(s=>getH(s.houseId)?.pushReceived || getH(s.houseId)?.pushSent);
     if(S.filter==='today'&&!isToday) sales=[];
 
     const col=document.createElement('div');
@@ -323,13 +343,20 @@ function renderDays(){
       <div class="day-body">
         ${sales.map(s=>{
           const h=getH(s.houseId);
-          const isPush = s.push || h?.push;
-          return `<div class="event${isPush?' push':''}${s.auto?' auto':''}" onclick="go('${s.url}')">
-            <div class="event-house">${isPush?'<span class="push-dot"></span>':''}${s.auto?'<span class="auto-dot"></span>':''}${h?h.name:'—'}</div>
+          const isPushReceived = h?.pushReceived;
+          const isPushSent = h?.pushSent;
+          const eventClass = isPushReceived ? ' push-received' : isPushSent ? ' push-sent' : '';
+          return `<div class="event${eventClass}${s.auto?' auto':''}" onclick="go('${s.url}')">
+            <div class="event-house">${h?h.name:'—'}</div>
             <div class="event-title">${s.title}</div>
+            <div class="event-badges">
+              ${isPushReceived?'<span class="badge received">Reçu</span>':''}
+              ${isPushSent?'<span class="badge sent">Sent</span>':''}
+              ${s.auto?'<span class="badge auto">Auto</span>':''}
+            </div>
           </div>`;
         }).join('')}
-        <button class="add-btn" onclick="openSaleModal('${iso}')">+ ajouter manuellement</button>
+        <button class="add-btn" onclick="openSaleModal('${iso}')">+ add manually</button>
       </div>`;
     g.appendChild(col);
   }
@@ -353,7 +380,10 @@ function renderHouses(){
       <div class="house-name-cell"><div class="dot ${dotCls}"></div><span class="h-name">${h.name}</span></div>
       <div class="h-url">${h.url.replace('https://','').replace('www.','').split('/')[0]}</div>
       <div class="h-next">${nxt?fmt(nxt.date):'<span class="none">—</span>'}</div>
-      <button class="push-btn${h.push?' on':''}" onclick="togglePush(${h.id},event)">${h.push?'Push ✓':'Push'}</button>`;
+      <div class="push-btns">
+        <button class="push-btn received${h.pushReceived?' on':''}" onclick="togglePushReceived(${h.id},event)">📥 Received</button>
+        <button class="push-btn sent${h.pushSent?' on':''}" onclick="togglePushSent(${h.id},event)">📤 Sent</button>
+      </div>`;
     list.appendChild(row);
 
     const o=document.createElement('option');
@@ -363,16 +393,16 @@ function renderHouses(){
 }
 
 function renderStats(){
-  const d7=Array.from({length:7},(_,i)=>offset(i).toISOString().split('T')[0]);
+  const d7=Array.from({length:14},(_,i)=>offset(i).toISOString().split('T')[0]);
   document.getElementById('s-today').textContent=S.sales.filter(s=>s.date===today()).length;
   document.getElementById('s-week').textContent=S.sales.filter(s=>d7.includes(s.date)).length;
-  document.getElementById('s-push').textContent=S.houses.filter(h=>h.push).length;
+  document.getElementById('s-push').textContent=S.houses.filter(h=>h.pushReceived||h.pushSent).length;
   document.getElementById('s-houses').textContent=S.houses.length;
 }
 
 function renderAll(){
   renderDays(); renderHouses(); renderStats();
-  const syncInfo = S.lastSync ? `Dernière sync : ${S.lastSync}` : 'Jamais synchronisé — cliquez Sync';
+  const syncInfo = S.lastSync ? `Last sync: ${S.lastSync}` : 'Never synced — click Sync';
   document.getElementById('last-update').textContent = syncInfo;
 }
 
@@ -384,10 +414,17 @@ function setFilter(f,btn){
   renderDays();
 }
 
-function togglePush(id,e){
+function togglePushReceived(id,e){
   e.stopPropagation();
   const h=S.houses.find(x=>x.id===id);
-  if(h) h.push=!h.push;
+  if(h) h.pushReceived=!h.pushReceived;
+  save(); renderHouses(); renderStats();
+}
+
+function togglePushSent(id,e){
+  e.stopPropagation();
+  const h=S.houses.find(x=>x.id===id);
+  if(h) h.pushSent=!h.pushSent;
   save(); renderHouses(); renderStats();
 }
 
@@ -413,7 +450,7 @@ function saveSale(){
   if(!date) return;
   S.sales.push({id:Date.now(),houseId:parseInt(document.getElementById('m-house').value),date,title:document.getElementById('m-title').value||'Sale',url:document.getElementById('m-url').value||'#',push:false,auto:false});
   close_('sale-modal'); save(); renderAll();
-  showToast('Vente ajoutée');
+  showToast('Sale added');
 }
 
 function saveHouse(){
@@ -421,14 +458,14 @@ function saveHouse(){
   if(!name) return;
   S.houses.push({id:Date.now(),name,url:document.getElementById('h-url').value.trim()||'#',push:false});
   close_('house-modal'); save(); renderAll();
-  showToast('Maison ajoutée');
+  showToast('House added');
 }
 
 document.querySelectorAll('.overlay').forEach(el=>{
   el.addEventListener('click',e=>{if(e.target===el) el.classList.remove('open');});
 });
 
-document.getElementById('full-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('full-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 load();
 renderAll();
 </script>
